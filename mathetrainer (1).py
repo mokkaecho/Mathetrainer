@@ -28,10 +28,13 @@ def neue_aufgabe():
     if auswahl == 3:
         a = np.random.randint(1, 10)
         b = np.random.randint(1, 10)
+    elif auswahl == 1:
+        a = np.random.randint(1, 99)
+        b = np.random.randint(1, 99 - a)  # Summe bleibt unter 100
     else:
         a = np.random.randint(1, 100)
         b = np.random.randint(1, 100)
-        if auswahl == 2 and b > a:
+        if b > a:
             a, b = b, a  # größere Zahl immer vorne bei Subtraktion
     st.session_state.a = a
     st.session_state.b = b
