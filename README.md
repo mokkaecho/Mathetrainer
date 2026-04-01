@@ -11,9 +11,6 @@ Ein interaktiver Mathetrainer als Streamlit-App – ideal zum Üben von Addition
 - Auswertung mit Prozentwert am Ende
 - Jederzeit abbrechbar
 
-## Live-App
-
-👉 [Hier klicken um die App zu öffnen](https://share.streamlit.io)
 
 ## Lokale Installation
 
