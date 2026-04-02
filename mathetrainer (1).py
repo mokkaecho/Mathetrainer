@@ -95,29 +95,29 @@ elif st.session_state.phase == "training":
         richtig = {1: a + b, 2: a - b, 3: a * b}[auswahl]
         st.error(f"❌ Leider falsch! Die richtige Lösung wäre **{richtig}**.")
 
-    eingabe = st.number_input("Deine Antwort:", step=1, key=f"eingabe_{versuch_nr}", label_visibility="visible")
-
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        if st.button("✔️ Antworten", use_container_width=True):
-            richtig = {1: a + b, 2: a - b, 3: a * b}[auswahl]
-            if int(eingabe) == richtig:
-                st.session_state.richtige_versuche += 1
-                st.session_state.feedback = "richtig"
-            else:
-                st.session_state.feedback = "falsch"
-
-            st.session_state.aktueller_versuch += 1
-
-            if st.session_state.aktueller_versuch >= max_v:
-                st.session_state.phase = "result"
-            else:
-                neue_aufgabe()
-            st.rerun()
-    with col2:
-        if st.button("❌ Abbrechen", use_container_width=True):
+    with st.form(key=f"form_{versuch_nr}", clear_on_submit=True):
+        eingabe = st.number_input("Deine Antwort:", step=1, label_visibility="visible")
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            submitted = st.form_submit_button("✔️ Antworten", use_container_width=True)
+        with col2:
+            abbrechen = st.form_submit_button("❌ Abbrechen", use_container_width=True)
+ 
+    if submitted:
+        richtig = {1: a + b, 2: a - b, 3: a * b}[auswahl]
+        if int(eingabe) == richtig:
+            st.session_state.richtige_versuche += 1
+            st.session_state.feedback = "richtig"
+        else:
+            st.session_state.feedback = "falsch"
+ 
+        st.session_state.aktueller_versuch += 1
+ 
+        if st.session_state.aktueller_versuch >= max_v:
             st.session_state.phase = "result"
-            st.rerun()
+        else:
+            neue_aufgabe()
+        st.rerun()
 
 # ── PHASE: RESULT ─────────────────────────────────────────────────────────────
 elif st.session_state.phase == "result":
