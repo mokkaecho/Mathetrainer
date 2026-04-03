@@ -1,7 +1,19 @@
 import streamlit as st
 import numpy as np
 
-st.set_page_config(page_title="Mathetrainer von Lias", page_icon="🧮")
+st.set_page_config(page_title="Mathetrainer von Lias", page_icon="🧮", layout="wide")
+
+st.markdown("""
+<style>
+    .block-container { max-width: 700px; margin: auto; padding-top: 2rem; }
+    h1 { font-size: 2.8rem !important; }
+    h2 { font-size: 2.4rem !important; }
+    h3 { font-size: 1.8rem !important; }
+    p, label, .stRadio, .stNumberInput, .stTextInput { font-size: 1.3rem !important; }
+    .stButton > button, .stFormSubmitButton > button { font-size: 1.2rem !important; padding: 0.6rem 1rem !important; }
+    .stProgress > div > div { height: 1.2rem !important; border-radius: 0.6rem; }
+</style>
+""", unsafe_allow_html=True)
 
 st.title("🧮 Persönlicher Mathetrainer von Lias")
 
@@ -95,15 +107,10 @@ elif st.session_state.phase == "training":
         richtig = {1: a + b, 2: a - b, 3: a * b}[auswahl]
         st.error(f"❌ Leider falsch! Die richtige Lösung wäre **{richtig}**.")
 
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        with st.form(key=f"form_{versuch_nr}", clear_on_submit=True):
-            eingabe = st.text_input("Deine Antwort:", placeholder="Ergebnis eingeben...")
-            submitted = st.form_submit_button("✔️ Antworten", use_container_width=True)
-    with col2:
-        st.write("")
-        st.write("")
-        abbrechen = st.button("❌ Abbrechen", use_container_width=True)
+    with st.form(key=f"form_{versuch_nr}", clear_on_submit=True):
+        eingabe = st.text_input("Deine Antwort:", placeholder="Ergebnis eingeben...")
+        submitted = st.form_submit_button("✔️ Antworten", use_container_width=True)
+    abbrechen = st.button("❌ Abbrechen", use_container_width=True)
 
     if submitted:
         if eingabe.strip() == "":
