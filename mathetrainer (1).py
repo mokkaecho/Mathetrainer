@@ -102,7 +102,7 @@ elif st.session_state.phase == "training":
             submitted = st.form_submit_button("✔️ Antworten", use_container_width=True)
         with col2:
             abbrechen = st.form_submit_button("❌ Abbrechen", use_container_width=True)
- 
+
     if submitted:
         richtig = {1: a + b, 2: a - b, 3: a * b}[auswahl]
         if int(eingabe) == richtig:
@@ -110,13 +110,17 @@ elif st.session_state.phase == "training":
             st.session_state.feedback = "richtig"
         else:
             st.session_state.feedback = "falsch"
- 
+
         st.session_state.aktueller_versuch += 1
- 
+
         if st.session_state.aktueller_versuch >= max_v:
             st.session_state.phase = "result"
         else:
             neue_aufgabe()
+        st.rerun()
+
+    if abbrechen:
+        st.session_state.phase = "result"
         st.rerun()
 
 # ── PHASE: RESULT ─────────────────────────────────────────────────────────────
