@@ -98,7 +98,7 @@ elif st.session_state.phase == "training":
     col1, col2 = st.columns([1, 1])
     with col1:
         with st.form(key=f"form_{versuch_nr}", clear_on_submit=True):
-            eingabe = st.number_input("Deine Antwort:", step=1, value=None, placeholder="Ergebnis eingeben...", label_visibility="visible")
+            eingabe = st.text_input("Deine Antwort:", placeholder="Ergebnis eingeben...")
             submitted = st.form_submit_button("✔️ Antworten", use_container_width=True)
     with col2:
         st.write("")
@@ -106,10 +106,16 @@ elif st.session_state.phase == "training":
         abbrechen = st.button("❌ Abbrechen", use_container_width=True)
 
     if submitted:
-        if eingabe is None:
+        if eingabe.strip() == "":
+            st.warning("⚠️ Bitte gib eine Zahl ein!")
+            st.stop()
+        try:
+            eingabe = int(eingabe)
+        except ValueError:
+            st.warning("⚠️ Bitte nur ganze Zahlen eingeben!")
             st.stop()
         richtig = {1: a + b, 2: a - b, 3: a * b}[auswahl]
-        if int(eingabe) == richtig:
+        if eingabe == richtig:
             st.session_state.richtige_versuche += 1
             st.session_state.feedback = "richtig"
         else:
