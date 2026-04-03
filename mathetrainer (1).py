@@ -95,15 +95,13 @@ elif st.session_state.phase == "training":
         richtig = {1: a + b, 2: a - b, 3: a * b}[auswahl]
         st.error(f"❌ Leider falsch! Die richtige Lösung wäre **{richtig}**.")
 
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        with st.form(key=f"form_{versuch_nr}", clear_on_submit=True):
-            eingabe = st.number_input("Deine Antwort:", step=1, value=None, placeholder="Ergebnis eingeben...", label_visibility="visible")
+    with st.form(key=f"form_{versuch_nr}", clear_on_submit=True):
+        eingabe = st.number_input("Deine Antwort:", step=1, value=None, placeholder="Ergebnis eingeben...", label_visibility="visible")
+        col1, col2 = st.columns([1, 1])
+        with col1:
             submitted = st.form_submit_button("✔️ Antworten", use_container_width=True)
-    with col2:
-        st.write("")
-        st.write("")
-        abbrechen = st.button("❌ Abbrechen", use_container_width=True)
+        with col2:
+            abbrechen = st.form_submit_button("❌ Abbrechen", use_container_width=True)
 
     if submitted:
         if eingabe is None:
