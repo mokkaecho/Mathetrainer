@@ -104,6 +104,9 @@ elif st.session_state.phase == "training":
             abbrechen = st.form_submit_button("❌ Abbrechen", use_container_width=True)
 
     if submitted:
+        if eingabe is None:
+            st.warning("⚠️ Bitte gib eine Zahl ein!")
+            st.stop()
         richtig = {1: a + b, 2: a - b, 3: a * b}[auswahl]
         if int(eingabe) == richtig:
             st.session_state.richtige_versuche += 1
