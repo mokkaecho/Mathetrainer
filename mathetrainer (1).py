@@ -96,7 +96,7 @@ elif st.session_state.phase == "training":
         st.error(f"❌ Leider falsch! Die richtige Lösung wäre **{richtig}**.")
 
     with st.form(key=f"form_{versuch_nr}", clear_on_submit=True):
-        eingabe = st.number_input("Deine Antwort:", step=1, label_visibility="visible")
+        eingabe = st.number_input("Deine Antwort:", step=1, value=None, placeholder="Ergebnis eingeben...", label_visibility="visible")
         col1, col2 = st.columns([1, 1])
         with col1:
             submitted = st.form_submit_button("✔️ Antworten", use_container_width=True)
