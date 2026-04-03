@@ -97,7 +97,6 @@ elif st.session_state.phase == "training":
 
     with st.form(key=f"form_{versuch_nr}", clear_on_submit=True):
         eingabe = st.number_input("Deine Antwort:", step=1, value=None, placeholder="Ergebnis eingeben...", label_visibility="visible")
-        eingabe = int(eingabe)
         col1, col2 = st.columns([1, 1])
         with col1:
             submitted = st.form_submit_button("✔️ Antworten", use_container_width=True)
