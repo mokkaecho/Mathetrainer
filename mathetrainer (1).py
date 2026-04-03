@@ -107,6 +107,16 @@ elif st.session_state.phase == "training":
         richtig = {1: a + b, 2: a - b, 3: a * b}[auswahl]
         st.error(f"❌ Leider falsch! Die richtige Lösung wäre **{richtig}**.")
 
+    # Autofocus per JavaScript
+    st.components.v1.html("""
+        <script>
+            setTimeout(() => {
+                const inputs = window.parent.document.querySelectorAll('input[type=text]');
+                if (inputs.length > 0) inputs[0].focus();
+            }, 200);
+        </script>
+    """, height=0)
+
     with st.form(key=f"form_{versuch_nr}", clear_on_submit=True):
         eingabe = st.text_input("Deine Antwort:", placeholder="Ergebnis eingeben...")
         submitted = st.form_submit_button("✔️ Antworten", use_container_width=True)
